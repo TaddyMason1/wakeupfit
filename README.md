@@ -154,7 +154,8 @@ open WakeUpFit.xcodeproj
 | Sounds | Default | Custom alarm library |
 
 ### Market Validation
-- **Alarmy** (closest competitor): 75M+ downloads, $11M+ annual revenue
+- **Alarmy** (closest competitor): 75M+ downloads, $11M+ annual revenue ([SensorTower](https://sensortower.com), [IndieHackers](https://indiehackers.com))
+- Global fitness app market: **$17.7B** in 2025 ([The Business Research Company](https://thebusinessresearchcompany.com))
 - Their missions are cognitive (math, photos). Ours require **physical movement** — the missing dimension.
 
 ## 📄 License
