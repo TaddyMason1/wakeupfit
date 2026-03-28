@@ -1,0 +1,26 @@
+# Logs
+*.log
+
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Generated
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# CocoaPods (if used later)
+Pods/
+
+# Temporary
+generate_deck.py
+*.pptx

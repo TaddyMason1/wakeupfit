@@ -1,0 +1,21 @@
+name: WakeUpFit
+options:
+  bundleIdPrefix: com.wakeupfit
+targets:
+  WakeUpFit:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources: WakeUpFit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wakeupfit.app
+        TARGETED_DEVICE_FAMILY: "1"
+        DEVELOPMENT_TEAM: D8874XN8CF
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_NSCameraUsageDescription: "WakeUpFit needs camera access to track your workout exercises and count reps."
