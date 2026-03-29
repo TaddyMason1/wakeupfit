@@ -222,7 +222,7 @@ final class PoseDetector: ObservableObject {
         case .squats:
             return [.leftShoulder, .rightShoulder, .leftHip, .rightHip] // Need torso length
         case .pushups:
-            return [.nose, .leftShoulder, .rightShoulder, .leftHip, .rightHip, .leftAnkle, .rightAnkle]
+            return [.leftShoulder, .rightShoulder, .leftElbow, .rightElbow, .leftWrist, .rightWrist]
         case .jumpingJacks:
             return [.leftWrist, .rightWrist, .leftShoulder, .rightShoulder]
         }
@@ -276,36 +276,54 @@ final class PoseDetector: ObservableObject {
         return min(max(position, 0.0), 1.0)
     }
 
-    // MARK: - Pushup: Track shoulder descent relative to body length (scale-invariant)
+    // MARK: - Pushup: Track elbow angle (scale & orientation invariant)
 
     private func calculatePushupPosition(
         _ points: [VNHumanBodyPoseObservation.JointName: CGPoint]
     ) -> CGFloat {
-        guard let shoulder = midpoint(.leftShoulder, .rightShoulder, in: points),
-              let hip = midpoint(.leftHip, .rightHip, in: points) else {
-            return 1.0
+        // Calculate elbow angle for both arms and use the average
+        var angles: [CGFloat] = []
+
+        // Left arm: shoulder → elbow → wrist
+        if let shoulder = points[.leftShoulder],
+           let elbow = points[.leftElbow],
+           let wrist = points[.leftWrist] {
+            angles.append(angleDegrees(a: shoulder, b: elbow, c: wrist))
         }
 
-        // Use torso length as our scale-invariant ruler (same approach as squats)
-        let torsoLength = abs(shoulder.y - hip.y)
-        guard torsoLength > 0.03 else { return 1.0 }
-
-        // Normalized shoulder height: how many torso-lengths from the bottom of the frame
-        let normalizedShoulderHeight = shoulder.y / torsoLength
-
-        // Calibrate: track highest normalized shoulder position (standing/plank up)
-        if normalizedShoulderHeight > maxNoseY {
-            maxNoseY = normalizedShoulderHeight
+        // Right arm: shoulder → elbow → wrist
+        if let shoulder = points[.rightShoulder],
+           let elbow = points[.rightElbow],
+           let wrist = points[.rightWrist] {
+            angles.append(angleDegrees(a: shoulder, b: elbow, c: wrist))
         }
 
-        guard maxNoseY > 0.1 else { return 1.0 }
+        guard !angles.isEmpty else { return 1.0 }
 
-        let ratio = normalizedShoulderHeight / maxNoseY
+        let avgAngle = angles.reduce(0, +) / CGFloat(angles.count)
 
-        // Amplify: a 20% relative shoulder drop = full bar travel
-        let position = (ratio - 0.80) / 0.20
+        // Arms extended (plank up): ~150-180°  →  position = 1.0
+        // Arms bent (pushup down):  ~70-100°   →  position = 0.0
+        // Map the range: 90° = 0.0, 160° = 1.0
+        let position = (avgAngle - 90.0) / 70.0
 
         return min(max(position, 0.0), 1.0)
+    }
+
+    /// Calculate angle in degrees at point B, given points A-B-C
+    private func angleDegrees(a: CGPoint, b: CGPoint, c: CGPoint) -> CGFloat {
+        let ba = CGPoint(x: a.x - b.x, y: a.y - b.y)
+        let bc = CGPoint(x: c.x - b.x, y: c.y - b.y)
+
+        let dotProduct = ba.x * bc.x + ba.y * bc.y
+        let magBA = sqrt(ba.x * ba.x + ba.y * ba.y)
+        let magBC = sqrt(bc.x * bc.x + bc.y * bc.y)
+
+        guard magBA > 0, magBC > 0 else { return 180.0 }
+
+        let cosAngle = dotProduct / (magBA * magBC)
+        let clampedCos = min(max(cosAngle, -1.0), 1.0)
+        return acos(clampedCos) * 180.0 / .pi
     }
 
     // MARK: - Jumping Jack: Track wrist height + ankle spread

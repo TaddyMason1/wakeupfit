@@ -7,12 +7,33 @@ struct AlarmListView: View {
     @State private var showAddAlarm = false
     @State private var editingAlarm: Alarm? = nil
     @State private var showWorkout = false
+    @State private var isEditing = false
+    @State private var showPaywall = false
+    
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(Theme.background)
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Theme.textDark)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(Theme.textDark)]
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                Theme.background
-                    .ignoresSafeArea()
+            ScrollView {
+                // Custom heading that stays visible
+                HStack {
+                    Text("Alarms")
+                        .font(.system(size: 34, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.textDark)
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
+                .padding(.bottom, 4)
                 
                 if alarmManager.alarms.isEmpty {
                     // Empty state
@@ -29,46 +50,67 @@ struct AlarmListView: View {
                             .font(.system(size: 15))
                             .foregroundStyle(Theme.textDark.opacity(0.4))
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 120)
                 } else {
-                    List {
+                    LazyVStack(spacing: 12) {
                         ForEach(alarmManager.alarms) { alarm in
-                            AlarmRow(alarm: alarm, onToggle: {
-                                alarmManager.toggle(id: alarm.id)
-                            })
-                            .listRowBackground(Theme.surface)
-                            .listRowSeparatorTint(Theme.accent.opacity(0.2))
+                            HStack(spacing: 12) {
+                                if isEditing {
+                                    Button {
+                                        withAnimation {
+                                            alarmManager.remove(id: alarm.id)
+                                            if alarmManager.alarms.isEmpty {
+                                                isEditing = false
+                                            }
+                                        }
+                                    } label: {
+                                        Image(systemName: "minus.circle.fill")
+                                            .font(.system(size: 22))
+                                            .foregroundStyle(.red)
+                                    }
+                                }
+                                
+                                AlarmRow(alarm: alarm, onToggle: {
+                                    alarmManager.toggle(id: alarm.id)
+                                })
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .background(Theme.surface)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                editingAlarm = alarm
-                            }
-                        }
-                        .onDelete { indexSet in
-                            for index in indexSet {
-                                alarmManager.remove(id: alarmManager.alarms[index].id)
+                                if isEditing {
+                                    editingAlarm = alarm
+                                }
                             }
                         }
                     }
-                    .listStyle(.insetGrouped)
-                    .scrollContentBackground(.hidden)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
                 }
             }
-            .navigationTitle("Alarms")
-            .toolbarColorScheme(.light, for: .navigationBar)
-            .onAppear {
-                // Force nav bar title to Obsidian Blue so it's legible on the light background
-                let appearance = UINavigationBarAppearance()
-                appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = UIColor(Theme.background)
-                appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Theme.textDark)]
-                appearance.titleTextAttributes = [.foregroundColor: UIColor(Theme.textDark)]
-                UINavigationBar.appearance().standardAppearance = appearance
-                UINavigationBar.appearance().scrollEdgeAppearance = appearance
-            }
+            .background(Theme.background)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if !alarmManager.alarms.isEmpty {
-                        EditButton()
-                            .foregroundStyle(Theme.primary)
+                        Button(isEditing ? "Done" : "Edit") {
+                            withAnimation {
+                                isEditing.toggle()
+                            }
+                        }
+                        .foregroundStyle(Theme.primary)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    Button {
+                        showPaywall = true
+                    } label: {
+                        Image(systemName: "crown.fill")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Theme.secondary)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -80,6 +122,10 @@ struct AlarmListView: View {
                             .foregroundStyle(Theme.primary)
                     }
                 }
+            }
+            .sheet(isPresented: $showPaywall) {
+                // TODO: Replace with RevenueCat PaywallView
+                Text("Premium Paywall")
             }
             .sheet(isPresented: $showAddAlarm) {
                 AddEditAlarmView(alarmManager: alarmManager, alarm: nil)
@@ -125,6 +171,8 @@ struct AlarmListView: View {
         content.title = "WAKE UP!"
         content.body = "Test Alarm"
         content.sound = .default
+        content.categoryIdentifier = "ALARM"
+        content.interruptionLevel = .timeSensitive
         
         // Fire in 3 seconds
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)

@@ -22,7 +22,7 @@ class AlarmManager: ObservableObject {
     private func loadAlarms() {
         guard let data = UserDefaults.standard.data(forKey: userDefaultsKey),
               let decoded = try? JSONDecoder().decode([Alarm].self, from: data) else { return }
-        self.alarms = decoded
+        self.alarms = sortChronologically(decoded)
     }
     
     private func saveAlarms() {
@@ -55,17 +55,13 @@ class AlarmManager: ObservableObject {
         for alarm in alarms where alarm.isEnabled {
             let content = UNMutableNotificationContent()
             content.title = "WAKE UP!"
-            content.body = alarm.label 
+            content.body = alarm.label
+            content.categoryIdentifier = "ALARM"
+            content.interruptionLevel = .timeSensitive
             
-            // TODO: Once Critical Alerts entitlement is approved, switch to:
-            // content.sound = alarm.soundId == "default"
-            //     ? UNNotificationSound.defaultCritical
-            //     : UNNotificationSound.criticalSoundNamed(UNNotificationSoundName(rawValue: alarm.soundId), withAudioVolume: 1.0)
-            if alarm.soundId == "default" {
-                content.sound = .default
-            } else {
-                content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm.soundId))
-            }
+            // Use custom sound file for notification
+            let soundName = AlarmSound(rawValue: alarm.soundId)?.filename ?? AlarmSound.alarm.filename
+            content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
             
             // If the user selected repeat days, calculate trigger for each day
             if !alarm.repeatDays.isEmpty {
@@ -99,13 +95,33 @@ class AlarmManager: ObservableObject {
     
     // MARK: - Intent API
     
+    // MARK: - Sorting Helper
+    
+    private func sortChronologically(_ alarmsList: [Alarm]) -> [Alarm] {
+        return alarmsList.sorted { a1, a2 in
+            let c1 = Calendar.current.dateComponents([.hour, .minute], from: a1.time)
+            let c2 = Calendar.current.dateComponents([.hour, .minute], from: a2.time)
+            
+            if c1.hour == c2.hour {
+                return (c1.minute ?? 0) < (c2.minute ?? 0)
+            }
+            return (c1.hour ?? 0) < (c2.hour ?? 0)
+        }
+    }
+    
+    // MARK: - Intent API
+    
     func add(alarm: Alarm) {
-        alarms.append(alarm)
+        var newAlarms = alarms
+        newAlarms.append(alarm)
+        alarms = sortChronologically(newAlarms)
     }
     
     func update(alarm: Alarm) {
-        if let idx = alarms.firstIndex(where: { $0.id == alarm.id }) {
-            alarms[idx] = alarm
+        var newAlarms = alarms
+        if let idx = newAlarms.firstIndex(where: { $0.id == alarm.id }) {
+            newAlarms[idx] = alarm
+            alarms = sortChronologically(newAlarms)
         }
     }
     

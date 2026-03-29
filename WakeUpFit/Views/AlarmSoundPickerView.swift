@@ -35,6 +35,9 @@ struct AlarmSoundPickerView: View {
         .navigationTitle("Sound")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.light, for: .navigationBar)
+        .onDisappear {
+            AlarmSound.stopPreview()
+        }
     }
 }
 

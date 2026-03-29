@@ -143,6 +143,7 @@ struct WorkoutCameraView: View {
         }
         .onChange(of: exerciseTracker.isComplete) { complete in
             if complete {
+                AlarmPlayer.shared.stop()
                 withAnimation(.easeInOut(duration: 0.5)) {
                     showComplete = true
                 }

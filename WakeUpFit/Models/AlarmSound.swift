@@ -1,31 +1,50 @@
 import Foundation
 import AudioToolbox
+import AVFoundation
 
 /// Selectable alarm sounds.
-/// "default" uses the iOS system notification sound.
-/// When you add custom audio files, add a new case with the exact bundled filename as the rawValue.
+/// Each case's rawValue is the exact filename (without extension) in the bundle.
 enum AlarmSound: String, CaseIterable, Identifiable {
-    case `default` = "default"
-    // TODO: Add custom sounds like:  case sunrise = "Sunrise.m4a"
+    case alarm = "Alarm"
+    case basedThomas = "Based Thomas"
+    case nuclearSiren = "Nuclear Siren"
+    case xueHuaPiaoPiao = "Xue Hua Piao Piao"
     
     var id: String { self.rawValue }
     
     var displayName: String {
-        switch self {
-        case .default: return "Default (Alarm)"
-        }
+        return self.rawValue
     }
     
-    /// System Sound ID used for live preview in the picker
-    var previewSoundId: SystemSoundID {
-        switch self {
-        case .default: return 1005  // Alarm
-        }
+    /// The filename with extension for notification sound and playback
+    var filename: String {
+        return "\(self.rawValue).caf"
     }
     
     /// Play a short preview of this sound
+    private static var previewPlayer: AVAudioPlayer?
+    
     func playPreview() {
-        AudioServicesPlaySystemSound(previewSoundId)
+        // Stop any existing preview first
+        AlarmSound.stopPreview()
+        
+        guard let url = Bundle.main.url(forResource: self.rawValue, withExtension: "caf") else {
+            print("AlarmSound: Could not find \(filename) in bundle")
+            return
+        }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            AlarmSound.previewPlayer = try AVAudioPlayer(contentsOf: url)
+            AlarmSound.previewPlayer?.play()
+        } catch {
+            print("AlarmSound: Preview error: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Stop any currently playing preview
+    static func stopPreview() {
+        previewPlayer?.stop()
+        previewPlayer = nil
     }
 }
-

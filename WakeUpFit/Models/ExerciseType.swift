@@ -17,9 +17,9 @@ enum ExerciseType: String, CaseIterable, Identifiable {
 
     var icon: String {
         switch self {
-        case .pushups: return "figure.strengthtraining.traditional"
-        case .squats: return "figure.cooldown"
-        case .jumpingJacks: return "figure.jumprope"
+        case .pushups: return "figure.core.training" // Person on the floor doing a pushup/plank
+        case .squats: return "figure.strengthtraining.functional" // Person doing a leg/squat movement
+        case .jumpingJacks: return "figure.mixed.cardio" // Person doing cardio/jumping
         }
     }
 

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03F59FF9BB2505B39CAF2115 /* Based Thomas.caf in Resources */ = {isa = PBXBuildFile; fileRef = 73B8E3197B800BC632724E24 /* Based Thomas.caf */; };
 		10CAF12FF8548D82659E61F4 /* WorkoutCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E98513BE4DCB9FFFF9C257 /* WorkoutCompleteView.swift */; };
 		1F26CD9D764BEE5B47839821 /* WorkoutCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5CE95EA3BC9D2651FF50F7 /* WorkoutCameraView.swift */; };
 		25C87D539C6B9471D35F67E4 /* AlarmSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FFB5CB628A62203941257 /* AlarmSound.swift */; };
@@ -14,17 +15,20 @@
 		2E7FB07AB1E1705FD1C66144 /* AlarmSoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472DC84668D7E4D7F61EA1B /* AlarmSoundPickerView.swift */; };
 		34D6304852F2A3DB1F7FCC02 /* WorkoutSelectorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA3D360A781CF8B82EC295 /* WorkoutSelectorOverlay.swift */; };
 		3D9DA17711E64443CC994620 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CEAAD76369BCBFEF3569D6 /* AlarmManager.swift */; };
+		3F493C5594BDF0B00954F446 /* Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5211C412CEC187FC60EA0862 /* Alarm.caf */; };
 		4A7AF0195E433D3A9D9BC470 /* WakeUpFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220738028E3EF74D50904483 /* WakeUpFitApp.swift */; };
 		55C11903049FAE0DFA9754BA /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D75C2A923ADF42759BDA969 /* Alarm.swift */; };
 		6A3079A8001FB9AB5A155899 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2DFB43E6550D409B81B10F /* ExerciseType.swift */; };
 		6B42E7958E77D8C6BFFF9225 /* AlarmPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74806F4FFF7D172F200854B /* AlarmPlayer.swift */; };
 		744FE8339C5638D861700464 /* SkeletonOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D49E0366A3C5CA6FD6417 /* SkeletonOverlayView.swift */; };
+		93E2484C176D2E1C2B314C19 /* Xue Hua Piao Piao.caf in Resources */ = {isa = PBXBuildFile; fileRef = 963E4090F0B2684EDDFAB586 /* Xue Hua Piao Piao.caf */; };
 		980B972B1E1CC4BC86307C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D3FAF25C931C32E55488BC3 /* Assets.xcassets */; };
 		A31F6D219A766E6E071CCD5F /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8328BC2EDB2740235A4FCB /* CameraManager.swift */; };
 		B2F293D23D655DA5CAB0126A /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F2B1FABB406DB3DCC7801D /* AlarmListView.swift */; };
 		CA7462114AA477581639FC71 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF02A4E88D9FF2BD23AEB35 /* Theme.swift */; };
 		CF9A62D4169714AE99C21428 /* DayPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515159C8C280366B8FC0D1DE /* DayPickerView.swift */; };
 		D00B69FC34B54B12981518EE /* ExerciseTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064188F4A90AFA4EB656392C /* ExerciseTracker.swift */; };
+		D088B9FB4603BAE7F7ABB72E /* Nuclear Siren.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0EEB99B52DF311DEC8309E55 /* Nuclear Siren.caf */; };
 		D140C1ABA53E110B1D1CE008 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682988A2AE7F1DBA218C268B /* SoundManager.swift */; };
 		D8C743377D7AE5D1F1862462 /* PoseDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A4B192F16EB5E09A55C3F /* PoseDetector.swift */; };
 		F13F44F249295C68AF601D28 /* AddEditAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CF214DA6F528C2C3F7B10 /* AddEditAlarmView.swift */; };
@@ -34,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		064188F4A90AFA4EB656392C /* ExerciseTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTracker.swift; sourceTree = "<group>"; };
+		0EEB99B52DF311DEC8309E55 /* Nuclear Siren.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nuclear Siren.caf"; sourceTree = "<group>"; };
 		1D75C2A923ADF42759BDA969 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		20E98513BE4DCB9FFFF9C257 /* WorkoutCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompleteView.swift; sourceTree = "<group>"; };
 		220738028E3EF74D50904483 /* WakeUpFitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpFitApp.swift; sourceTree = "<group>"; };
@@ -42,17 +47,20 @@
 		416FFB5CB628A62203941257 /* AlarmSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSound.swift; sourceTree = "<group>"; };
 		4A5CE95EA3BC9D2651FF50F7 /* WorkoutCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCameraView.swift; sourceTree = "<group>"; };
 		515159C8C280366B8FC0D1DE /* DayPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPickerView.swift; sourceTree = "<group>"; };
+		5211C412CEC187FC60EA0862 /* Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alarm.caf; sourceTree = "<group>"; };
 		59CEAAD76369BCBFEF3569D6 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		682988A2AE7F1DBA218C268B /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		6A8328BC2EDB2740235A4FCB /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		6D3FAF25C931C32E55488BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		73B8E3197B800BC632724E24 /* Based Thomas.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Based Thomas.caf"; sourceTree = "<group>"; };
 		752D49E0366A3C5CA6FD6417 /* SkeletonOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonOverlayView.swift; sourceTree = "<group>"; };
+		963E4090F0B2684EDDFAB586 /* Xue Hua Piao Piao.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Xue Hua Piao Piao.caf"; sourceTree = "<group>"; };
 		A5F2B1FABB406DB3DCC7801D /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
 		B74806F4FFF7D172F200854B /* AlarmPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmPlayer.swift; sourceTree = "<group>"; };
 		BAF02A4E88D9FF2BD23AEB35 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		DABEBD3A72AA5031825A71B3 /* WorkoutHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHUDView.swift; sourceTree = "<group>"; };
 		DE5CF214DA6F528C2C3F7B10 /* AddEditAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditAlarmView.swift; sourceTree = "<group>"; };
-		E2FD17864B9EB174F4C61A62 /* WakeUpFit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WakeUpFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2FD17864B9EB174F4C61A62 /* WakeUpFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeUpFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFAA3D360A781CF8B82EC295 /* WorkoutSelectorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSelectorOverlay.swift; sourceTree = "<group>"; };
 		F18A516008A4F8018F4A04BC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F76A4B192F16EB5E09A55C3F /* PoseDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetector.swift; sourceTree = "<group>"; };
@@ -75,6 +83,17 @@
 				EFAA3D360A781CF8B82EC295 /* WorkoutSelectorOverlay.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0E257F994F7342C830D0CD16 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				5211C412CEC187FC60EA0862 /* Alarm.caf */,
+				73B8E3197B800BC632724E24 /* Based Thomas.caf */,
+				0EEB99B52DF311DEC8309E55 /* Nuclear Siren.caf */,
+				963E4090F0B2684EDDFAB586 /* Xue Hua Piao Piao.caf */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		35FF82FF3C0EB499C79C3C44 /* Utilities */ = {
@@ -122,6 +141,7 @@
 				6684DEE30CDD6388133938AF /* Camera */,
 				E67DC873977A5FCF9D63F46E /* Models */,
 				37470DDE3916E124D05DDEFF /* Pose */,
+				0E257F994F7342C830D0CD16 /* Sounds */,
 				35FF82FF3C0EB499C79C3C44 /* Utilities */,
 				0D2FF4D1604744785812F4E1 /* Views */,
 			);
@@ -177,7 +197,6 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					13D4844C78228BB634C0658C = {
-						DevelopmentTeam = D8874XN8CF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -192,7 +211,6 @@
 			);
 			mainGroup = 8ECD42B6831694AE4A51E7AB;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -206,7 +224,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F493C5594BDF0B00954F446 /* Alarm.caf in Resources */,
 				980B972B1E1CC4BC86307C22 /* Assets.xcassets in Resources */,
+				03F59FF9BB2505B39CAF2115 /* Based Thomas.caf in Resources */,
+				D088B9FB4603BAE7F7ABB72E /* Nuclear Siren.caf in Resources */,
+				93E2484C176D2E1C2B314C19 /* Xue Hua Piao Piao.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

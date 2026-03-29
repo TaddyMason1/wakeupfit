@@ -1,6 +1,5 @@
 import Foundation
 import AVFoundation
-import AudioToolbox
 
 /// Manages a looping alarm sound that plays until explicitly stopped (i.e., workout completed).
 class AlarmPlayer: ObservableObject {
@@ -8,12 +7,11 @@ class AlarmPlayer: ObservableObject {
     
     @Published var isPlaying = false
     private var audioPlayer: AVAudioPlayer?
-    private var repeatTimer: Timer?
     
     private init() {}
     
     /// Start the alarm sound on an infinite loop
-    func start() {
+    func start(sound: AlarmSound = .alarm) {
         guard !isPlaying else { return }
         
         // Configure audio session for loud playback even on silent switch
@@ -24,20 +22,26 @@ class AlarmPlayer: ObservableObject {
             print("AlarmPlayer: Audio session error: \(error.localizedDescription)")
         }
         
-        // Use the system Tri-Tone as a repeating alarm via AudioServices
-        // Since system sounds are short, we loop them with a timer
-        isPlaying = true
-        playSystemSound()
-        repeatTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
-            self?.playSystemSound()
+        // Load and loop the custom sound file
+        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: "caf") else {
+            print("AlarmPlayer: Could not find \(sound.filename) in bundle")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.numberOfLoops = -1 // Loop forever
+            audioPlayer?.volume = 1.0
+            audioPlayer?.play()
+            isPlaying = true
+        } catch {
+            print("AlarmPlayer: Playback error: \(error.localizedDescription)")
         }
     }
     
     /// Stop the alarm — called when the workout is completed
     func stop() {
         isPlaying = false
-        repeatTimer?.invalidate()
-        repeatTimer = nil
         audioPlayer?.stop()
         audioPlayer = nil
         
@@ -46,9 +50,5 @@ class AlarmPlayer: ObservableObject {
         } catch {
             print("AlarmPlayer: Deactivation error: \(error.localizedDescription)")
         }
-    }
-    
-    private func playSystemSound() {
-        AudioServicesPlaySystemSound(1005) // Alarm
     }
 }
