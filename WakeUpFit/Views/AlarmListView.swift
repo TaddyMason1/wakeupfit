@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import RevenueCatUI
 
 /// Apple-style alarm list — the main screen of the app
 struct AlarmListView: View {
@@ -124,8 +125,7 @@ struct AlarmListView: View {
                 }
             }
             .sheet(isPresented: $showPaywall) {
-                // TODO: Replace with RevenueCat PaywallView
-                Text("Premium Paywall")
+                PaywallView()
             }
             .sheet(isPresented: $showAddAlarm) {
                 AddEditAlarmView(alarmManager: alarmManager, alarm: nil)

@@ -1,12 +1,21 @@
 name: WakeUpFit
 options:
   bundleIdPrefix: com.wakeupfit
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios-spm.git
+    from: "5.0.0"
 targets:
   WakeUpFit:
     type: application
     platform: iOS
     deploymentTarget: "16.0"
     sources: WakeUpFit
+    dependencies:
+      - package: RevenueCat
+        product: RevenueCat
+      - package: RevenueCat
+        product: RevenueCatUI
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.wakeupfit.app

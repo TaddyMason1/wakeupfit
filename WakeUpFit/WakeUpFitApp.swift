@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import RevenueCat
 
 @main
 struct WakeUpFitApp: App {
@@ -18,6 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
+        Purchases.configure(withAPIKey: "appl_rRIlypxjJkykySxkpbtkhbwSdZk")
         return true
     }
     
