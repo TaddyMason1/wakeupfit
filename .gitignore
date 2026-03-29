@@ -18,9 +18,4 @@ DerivedData/
 *.dSYM.zip
 *.dSYM
 
-# CocoaPods (if used later)
-Pods/
 
-# Temporary
-generate_deck.py
-*.pptx
